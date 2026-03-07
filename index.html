@@ -46,8 +46,7 @@
   <div class="section">
     <h2>Abstract</h2>
     <p>
-      We investigate safe task execution for robotic manipulators operating in dynamic environments using online perception-based neural control barrier functions.
-    </p>
+      In this paper, we investigate the safe execution of robotic manipulators operating in dynamic environments. Safety in such scenarios requries enforcing collision-avoidance constraints under rapidly changing observations of moving obstacles. We present an online, perception-based neural control barrier function (Neural CBF) framework for real-time safety enforcement during manipulation. Our key contribution is a CBF formulation and learning objective that explicitly accounts for obstacle motion through the time variation of perception. We consider dynamic environments with uncontrolled but observable obstacle agents  whose states and velocities can be accessed but cannot be actuated.  In this setting, the safety condition must account for how observations evolve as obstacle agents move. We address this by introducing a differentiable observation model that maps obstacle states to observations, enabling stable estimation of observation dynamics and incorporating them into the neural CBF learning objective. Experiments in dynamic manipulation scenarios show that our approach achieves higher safety and better constraint satisfaction compared to competitive baselines.
   </div>
 
   <div class="section">

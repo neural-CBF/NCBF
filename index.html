@@ -3,60 +3,466 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NCBF Project</title>
+  <title>Safe Manipulation in Dynamic Environments via Online Perception-Based Neural Control Barrier Functions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1d2433;
+      --muted: #667085;
+      --primary: #1f3b87;
+      --primary-2: #2f5ee5;
+      --accent: #eb72c1;
+      --border: #e7eaf3;
+      --shadow: 0 10px 30px rgba(31, 59, 135, 0.08);
+      --radius: 22px;
+      --maxw: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: Arial, sans-serif;
-      max-width: 960px;
-      margin: 60px auto;
-      padding: 0 20px;
-      line-height: 1.6;
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--maxw), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(246, 247, 251, 0.84);
+      border-bottom: 1px solid rgba(231, 234, 243, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      background: #eef2ff;
+      color: var(--primary-2);
+    }
+
+    .hero {
+      padding: 64px 0 28px;
       text-align: center;
     }
-    h1 {
-      font-size: 36px;
-      line-height: 1.25;
-      margin-bottom: 24px;
+
+    .title {
+      max-width: 1020px;
+      margin: 0 auto;
+      font-size: clamp(2.2rem, 5vw, 4.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      color: #1d2941;
     }
+
+    .authors {
+      margin-top: 28px;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 600;
+      color: var(--primary-2);
+    }
+
+    .authors a:hover { text-decoration: underline; }
+
+    .meta {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .note {
+      margin-top: 6px;
+      color: #97a0b5;
+      font-size: 0.98rem;
+      font-style: italic;
+    }
+
+    .action-row {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
     .btn {
-      display: inline-block;
-      margin: 8px;
-      padding: 10px 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #0366d6;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 16px;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
     }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(31, 59, 135, 0.14);
+    }
+
+    .btn-primary {
+      background: #1f2d4d;
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: #1f2d4d;
+      border: 1px solid var(--border);
+    }
+
     .section {
-      margin-top: 40px;
-      text-align: left;
+      padding: 44px 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+      line-height: 1.15;
+      text-align: center;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+
+    .section-accent {
+      width: 68px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin: 14px auto 28px;
+    }
+
+    .lead-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .teaser-wrap {
+      padding: 18px;
+    }
+
+    .teaser-wrap img,
+    .teaser-wrap iframe {
+      width: 100%;
+      border-radius: 20px;
+      border: 0;
+      background: #dfe5f5;
+      min-height: 360px;
+    }
+
+    .caption {
+      max-width: 940px;
+      margin: 16px auto 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: 1.04rem;
+    }
+
+    .abstract-box {
+      background: transparent;
+      max-width: 920px;
+      margin: 0 auto;
+      color: #5f6f8f;
+      font-size: 1.08rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .card h3 {
+      margin: 6px 0 10px;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .card p { color: var(--muted); margin: 0; }
+
+    .figure {
+      border-radius: 18px;
+      overflow: hidden;
+      background: #eef2fb;
+      border: 1px solid var(--border);
+    }
+
+    .figure img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .result-card img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .result-card .result-caption {
+      margin-top: 12px;
+      font-size: 1rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .video-frame {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: 0;
+      border-radius: 18px;
+    }
+
+    .bibtex {
+      background: #101828;
+      color: #e7ecff;
+      border-radius: 22px;
+      padding: 22px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .bibtex code,
+    .bibtex pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .footer {
+      padding: 26px 0 48px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.96rem;
+    }
+
+    .backtop {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary-2), #437bff);
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(47, 94, 229, 0.28);
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 960px) {
+      .grid-2, .results-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 40px;
+      }
+      .teaser-wrap img,
+      .teaser-wrap iframe {
+        min-height: 240px;
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(var(--maxw), calc(100% - 20px)); }
+      .card, .video-frame, .lead-card { border-radius: 20px; }
+      .btn { width: 100%; justify-content: center; }
+      .action-row { gap: 10px; }
+      .authors { line-height: 1.6; }
     }
   </style>
 </head>
 <body>
-  <h1>Safe Manipulation in Dynamic Environments via Online Perception-Based Neural Control Barrier Functions</h1>
-
-  <div>
-    <a class="btn" href="https://neural-CBF.github.io/">Home</a>
-    <a class="btn" href="./paper.pdf" target="_blank">Paper</a>
-    <a class="btn" href="#">Code</a>
-    <a class="btn" href="#">Video</a>
+  <div class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top">NCBF Project</a>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#video">Video</a>
+        <a href="#bibtex">BibTeX</a>
+      </div>
+    </div>
   </div>
 
-  <div class="section">
-    <h2>Abstract</h2>
-    <p>
-      In this paper, we investigate the safe execution of robotic manipulators operating in dynamic environments. Safety in such scenarios requries enforcing collision-avoidance constraints under rapidly changing observations of moving obstacles. We present an online, perception-based neural control barrier function (Neural CBF) framework for real-time safety enforcement during manipulation. Our key contribution is a CBF formulation and learning objective that explicitly accounts for obstacle motion through the time variation of perception. We consider dynamic environments with uncontrolled but observable obstacle agents  whose states and velocities can be accessed but cannot be actuated.  In this setting, the safety condition must account for how observations evolve as obstacle agents move. We address this by introducing a differentiable observation model that maps obstacle states to observations, enabling stable estimation of observation dynamics and incorporating them into the neural CBF learning objective. Experiments in dynamic manipulation scenarios show that our approach achieves higher safety and better constraint satisfaction compared to competitive baselines.
+  <main id="top">
+    <section class="hero container">
+      <h1 class="title">Safe Manipulation in Dynamic Environments via Online Perception-Based Neural Control Barrier Functions</h1>
+      <div class="authors">
+        <a href="#">Author One</a>,
+        <a href="#">Author Two</a>,
+        <a href="#">Author Three</a>
+      </div>
+      <div class="meta">Institution Name · Conference / Preprint Year</div>
+      <div class="note">Replace authors, affiliation, and links with your actual paper information.</div>
+
+      <div class="action-row">
+        <a class="btn btn-primary" href="./paper.pdf" target="_blank">📄 Paper</a>
+        <a class="btn btn-primary" href="#" target="_blank">🧾 Supplementary</a>
+        <a class="btn btn-primary" href="https://github.com/neural-CBF/NCBF" target="_blank">💻 Code</a>
+        <a class="btn btn-secondary" href="#video">▶ Video</a>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="lead-card">
+        <div class="teaser-wrap">
+          <img src="./assets/teaser.png" alt="Teaser figure" />
+        </div>
+      </div>
+      <p class="caption">A concise teaser caption goes here. Summarize the task setting, main idea, and the visual takeaway in one or two sentences.</p>
+    </section>
+
+    <section id="abstract" class="section container">
+      <h2 class="section-title">Abstract</h2>
+      <div class="section-accent"></div>
+      <div class="abstract-box">
+        In this paper, we investigate the safe execution of robotic manipulators operating in dynamic environments. Safety in such scenarios requires enforcing collision-avoidance constraints under rapidly changing observations of moving obstacles. We present an online, perception-based neural control barrier function framework for real-time safety enforcement during manipulation. Replace this placeholder paragraph with your polished abstract, and keep it around 180–250 words for a clean paper website layout.
+      </div>
+    </section>
+
+    <section id="method" class="section container">
+      <h2 class="section-title">Method Overview</h2>
+      <div class="section-accent"></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="figure">
+            <img src="./assets/method.png" alt="Method figure" />
+          </div>
+        </div>
+        <div class="card">
+          <h3>Key Idea</h3>
+          <p>
+            Use this panel to explain your pipeline in plain language: observation model, neural CBF formulation, learning objective, controller integration, and safety guarantees. This right-hand text block is what makes many research project websites feel polished and readable.
+          </p>
+          <h3 style="margin-top:18px;">Highlights</h3>
+          <p>
+            • Real-time safety enforcement in dynamic scenes<br>
+            • Online perception-aware barrier formulation<br>
+            • Better safety and constraint satisfaction than baselines
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section container">
+      <h2 class="section-title">Results</h2>
+      <div class="section-accent"></div>
+      <div class="results-grid">
+        <div class="card result-card">
+          <img src="./assets/result1.png" alt="Result 1" />
+          <div class="result-caption">Result panel 1. Replace with your plot or qualitative comparison.</div>
+        </div>
+        <div class="card result-card">
+          <img src="./assets/result2.png" alt="Result 2" />
+          <div class="result-caption">Result panel 2. Replace with your distance curve, ablation, or benchmark figure.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="video" class="section container">
+      <h2 class="section-title">Video Presentation</h2>
+      <div class="section-accent"></div>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Project video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p class="caption">Swap the embedded YouTube link with your own project demo or presentation video.</p>
+    </section>
+
+    <section id="bibtex" class="section container">
+      <h2 class="section-title">BibTeX</h2>
+      <div class="section-accent"></div>
+      <div class="bibtex"><pre>@inproceedings{ncbf2026,
+  title     = {Safe Manipulation in Dynamic Environments via Online Perception-Based Neural Control Barrier Functions},
+  author    = {Author One and Author Two and Author Three},
+  booktitle = {Conference Name},
+  year      = {2026}
+}</pre></div>
+    </section>
+  </main>
+
+  <div class="footer container">
+    © 2026 Your Research Group. Built with GitHub Pages.
   </div>
 
-  <div class="section">
-    <h2>Method</h2>
-    <p>Method figure will go here.</p>
-  </div>
-
-  <div class="section">
-    <h2>Results</h2>
-    <p>Experimental results will go here.</p>
-  </div>
+  <a class="backtop" href="#top" aria-label="Back to top">↑</a>
 </body>
 </html>

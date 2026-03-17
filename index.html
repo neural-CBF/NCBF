@@ -552,14 +552,15 @@
         <div class="card">
           <h3>Key Idea</h3>
           <p>
-            Use this panel to explain your pipeline in plain language: observation model, neural CBF formulation, learning objective, controller integration, and safety guarantees. This right-hand text block is what makes many research project websites feel polished and readable.
+            We propose a perception-based neural CBF framework for safe manipulation in dynamic environments. The key idea is to model safety directly from ray-based point-cloud observations, approximate the observation process with a differentiable surrogate, and use this model to explicitly incorporate observation dynamics into neural CBF training and online safe control.
           </p>
 
           <h3 style="margin-top:18px;">Highlights</h3>
           <p>
-            • Real-time safety enforcement in dynamic scenes<br>
-            • Online perception-aware barrier formulation<br>
-            • Better safety and constraint satisfaction than baselines
+            • Safety defined directly on ray-based point-cloud observations<br>
+            • Differentiable surrogate for observation dynamics approximation<br>
+            • Neural CBF training with dynamic perception effects<br>
+            • Online safe controller synthesized through a QP filter<br>
           </p>
         </div>
       </div>

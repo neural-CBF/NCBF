@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Safe Manipulation in Dynamic Environments via Online Perception-Based Neural Control Barrier Functions</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
   <style>
     :root {
       --bg: #f6f7fb;
@@ -24,6 +27,7 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -90,7 +94,7 @@
       max-width: 1020px;
       margin: 0 auto;
       font-size: clamp(1.8rem, 3.8vw, 3.4rem);
-      line-height: 1.05;
+      line-height: 1.08;
       letter-spacing: -0.04em;
       font-weight: 800;
       color: #1d2941;
@@ -98,12 +102,20 @@
 
     .authors {
       margin-top: 28px;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      font-weight: 600;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      font-weight: 700;
       color: var(--primary-2);
+      line-height: 1.6;
     }
 
-    .authors a:hover { text-decoration: underline; }
+    .authors a {
+      color: var(--primary-2);
+      text-decoration: none;
+    }
+
+    .authors a:hover {
+      text-decoration: underline;
+    }
 
     .meta {
       margin-top: 10px;
@@ -135,6 +147,11 @@
       font-weight: 700;
       box-shadow: var(--shadow);
       transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .btn i {
+      font-size: 1.05em;
+      margin-right: 2px;
     }
 
     .btn:hover {
@@ -186,7 +203,8 @@
     }
 
     .teaser-wrap img,
-    .teaser-wrap iframe {
+    .teaser-wrap iframe,
+    .teaser-wrap video {
       width: 100%;
       border-radius: 20px;
       border: 0;
@@ -231,7 +249,10 @@
       letter-spacing: -0.02em;
     }
 
-    .card p { color: var(--muted); margin: 0; }
+    .card p {
+      color: var(--muted);
+      margin: 0;
+    }
 
     .figure {
       border-radius: 18px;
@@ -382,16 +403,21 @@
     }
 
     @media (max-width: 960px) {
-      .grid-2, .results-grid {
+      .grid-2,
+      .results-grid {
         grid-template-columns: 1fr;
       }
+
       .hero {
         padding-top: 40px;
       }
+
       .teaser-wrap img,
-      .teaser-wrap iframe {
+      .teaser-wrap iframe,
+      .teaser-wrap video {
         min-height: 240px;
       }
+
       .nav {
         flex-direction: column;
         align-items: flex-start;
@@ -399,11 +425,28 @@
     }
 
     @media (max-width: 640px) {
-      .container { width: min(var(--maxw), calc(100% - 20px)); }
-      .card, .video-frame, .lead-card { border-radius: 20px; }
-      .btn { width: 100%; justify-content: center; }
-      .action-row { gap: 10px; }
-      .authors { line-height: 1.6; }
+      .container {
+        width: min(var(--maxw), calc(100% - 20px));
+      }
+
+      .card,
+      .video-frame,
+      .lead-card {
+        border-radius: 20px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .action-row {
+        gap: 10px;
+      }
+
+      .authors {
+        line-height: 1.6;
+      }
     }
   </style>
 </head>
@@ -424,34 +467,44 @@
   <main id="top">
     <section class="hero container">
       <h1 class="title">Safe Manipulation in Dynamic Environments via Online Perception-Based Neural Control Barrier Functions</h1>
+
       <div class="authors">
         <a href="#">Anonymous Author<sup>*</sup></a>,
         <a href="#">Anonymous Author<sup>*</sup></a>,
-        <a href="#">Anonymous Author<sup></sup></a>
+        <a href="#">Anonymous Author</a>
       </div>
+
       <div class="meta">Institution Name · Conference / Preprint Year</div>
       <div class="note"><sup>*</sup> Indicates Equal Contribution</div>
+
       <div class="action-row">
-        <a class="btn btn-primary" href="./paper.pdf" target="_blank">📄 Paper</a>
-        <a class="btn btn-primary" href="#" target="_blank">🧾 Supplementary</a>
-        <a class="btn btn-primary" href="https://github.com/neural-CBF/NCBF" target="_blank">💻 Code</a>
-        <a class="btn btn-secondary" href="#video">▶ Video</a>
+        <a class="btn btn-primary" href="./paper.pdf" target="_blank">
+          <i class="fa-solid fa-file-pdf"></i> Paper
+        </a>
+        <a class="btn btn-primary" href="./supplementary.pdf" target="_blank">
+          <i class="fa-solid fa-file-pdf"></i> Supplementary
+        </a>
+        <a class="btn btn-primary" href="https://github.com/neural-CBF/NCBF" target="_blank">
+          <i class="fa-brands fa-github"></i> Code
+        </a>
+        <a class="btn btn-secondary" href="#video">
+          <i class="fa-solid fa-circle-play"></i> Video
+        </a>
       </div>
     </section>
 
     <section class="section container">
       <div class="lead-card">
         <div class="teaser-wrap">
-          <!-- Option A: local MP4 video -->
           <video controls playsinline poster="./assets/teaser-poster.png" style="width:100%; border-radius:20px; background:#dfe5f5; min-height:360px; object-fit:cover;">
             <source src="./assets/teaser.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <!-- Option B: YouTube embed. If you use YouTube, delete the <video> above and uncomment this iframe. -->
-          <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Teaser video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
       </div>
-      <p class="caption">Replace this teaser with your project demo video. Put <code>teaser.mp4</code> into the <code>assets</code> folder, or switch to the embedded YouTube version.</p>
+      <p class="caption">
+        Replace this teaser with your project demo video. Put <code>teaser.mp4</code> into the <code>assets</code> folder, or switch to an embedded YouTube version.
+      </p>
     </section>
 
     <section id="abstract" class="section container">
@@ -488,11 +541,13 @@
             </div>
           </div>
         </div>
+
         <div class="card">
           <h3>Key Idea</h3>
           <p>
             Use this panel to explain your pipeline in plain language: observation model, neural CBF formulation, learning objective, controller integration, and safety guarantees. This right-hand text block is what makes many research project websites feel polished and readable.
           </p>
+
           <h3 style="margin-top:18px;">Highlights</h3>
           <p>
             • Real-time safety enforcement in dynamic scenes<br>
@@ -544,6 +599,7 @@
   </div>
 
   <a class="backtop" href="#top" aria-label="Back to top">↑</a>
+
   <script>
     (function () {
       const carousel = document.getElementById('method-carousel');

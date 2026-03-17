@@ -21,7 +21,6 @@
       --accent: #eb72c1;
       --border: #e7eaf3;
       --shadow: 0 10px 30px rgba(31, 59, 135, 0.08);
-      --radius: 22px;
       --maxw: 1180px;
     }
 
@@ -300,14 +299,15 @@
       padding: 22px;
     }
 
-    .results-pair {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
+    .results-single {
+      display: flex;
+      justify-content: center;
     }
 
     .result-card {
       text-align: center;
+      max-width: 980px;
+      margin: 0 auto;
     }
 
     .result-card img {
@@ -423,8 +423,7 @@
     }
 
     @media (max-width: 960px) {
-      .grid-2,
-      .results-pair {
+      .grid-2 {
         grid-template-columns: 1fr;
       }
 
@@ -560,7 +559,7 @@
             • Safety defined directly on ray-based point-cloud observations<br>
             • Differentiable surrogate for observation dynamics approximation<br>
             • Neural CBF training with dynamic perception effects<br>
-            • Online safe controller synthesized through a QP filter<br>
+            • Online safe controller synthesized through a QP filter
           </p>
         </div>
       </div>
@@ -576,14 +575,21 @@
         <div class="results-track">
           <div class="results-slide active">
             <div class="results-slide-inner">
-              <div class="results-pair">
+              <div class="results-single">
                 <div class="result-card">
                   <img src="./assets/result1.png" alt="Result 1" />
-                  <div class="result-caption">Result panel 1. Replace with your plot or qualitative comparison.</div>
+                  <div class="result-caption">Result 1. Replace with your plot or qualitative comparison.</div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-slide">
+            <div class="results-slide-inner">
+              <div class="results-single">
                 <div class="result-card">
                   <img src="./assets/result2.png" alt="Result 2" />
-                  <div class="result-caption">Result panel 2. Replace with your distance curve, ablation, or benchmark figure.</div>
+                  <div class="result-caption">Result 2. Replace with your distance curve, ablation, or benchmark figure.</div>
                 </div>
               </div>
             </div>
@@ -591,14 +597,10 @@
 
           <div class="results-slide">
             <div class="results-slide-inner">
-              <div class="results-pair">
+              <div class="results-single">
                 <div class="result-card">
                   <img src="./assets/result3.png" alt="Result 3" />
-                  <div class="result-caption">Result panel 3. Replace with another comparison figure.</div>
-                </div>
-                <div class="result-card">
-                  <img src="./assets/result4.png" alt="Result 4" />
-                  <div class="result-caption">Result panel 4. Replace with another quantitative plot.</div>
+                  <div class="result-caption">Result 3. Replace with another comparison figure.</div>
                 </div>
               </div>
             </div>
@@ -606,14 +608,32 @@
 
           <div class="results-slide">
             <div class="results-slide-inner">
-              <div class="results-pair">
+              <div class="results-single">
+                <div class="result-card">
+                  <img src="./assets/result4.png" alt="Result 4" />
+                  <div class="result-caption">Result 4. Replace with another quantitative plot.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-slide">
+            <div class="results-slide-inner">
+              <div class="results-single">
                 <div class="result-card">
                   <img src="./assets/result5.png" alt="Result 5" />
-                  <div class="result-caption">Result panel 5. Replace with your ablation or trajectory figure.</div>
+                  <div class="result-caption">Result 5. Replace with your ablation or trajectory figure.</div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-slide">
+            <div class="results-slide-inner">
+              <div class="results-single">
                 <div class="result-card">
                   <img src="./assets/result6.png" alt="Result 6" />
-                  <div class="result-caption">Result panel 6. Replace with your final comparison figure.</div>
+                  <div class="result-caption">Result 6. Replace with your final comparison figure.</div>
                 </div>
               </div>
             </div>
@@ -626,6 +646,9 @@
           <button class="dot active" aria-label="Go to results slide 1"></button>
           <button class="dot" aria-label="Go to results slide 2"></button>
           <button class="dot" aria-label="Go to results slide 3"></button>
+          <button class="dot" aria-label="Go to results slide 4"></button>
+          <button class="dot" aria-label="Go to results slide 5"></button>
+          <button class="dot" aria-label="Go to results slide 6"></button>
         </div>
       </div>
     </section>

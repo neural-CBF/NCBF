@@ -222,13 +222,14 @@
 
     .abstract-box {
       background: transparent;
-      max-width: 920px;
+      max-width: 960px;
       margin: 0 auto;
-      color: #5f6f8f;
+      color: #64748b;
       font-size: 1.08rem;
-      line-height: 1.9;
+      line-height: 1.95;
       text-align: justify;
       text-justify: inter-word;
+      hyphens: auto;
     }
 
     .grid-2 {
@@ -262,27 +263,61 @@
       overflow: hidden;
       background: #eef2fb;
       border: 1px solid var(--border);
+      padding: 10px;
     }
 
     .figure img {
       width: 100%;
-      aspect-ratio: auto;
-      object-fit: cover;
+      height: auto;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 12px;
     }
 
-    .results-grid {
+    .results-carousel {
+      position: relative;
+    }
+
+    .results-track {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    .results-slide {
+      display: none;
+    }
+
+    .results-slide.active {
+      display: block;
+    }
+
+    .results-slide-inner {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .results-pair {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      gap: 22px;
+    }
+
+    .result-card {
+      text-align: center;
     }
 
     .result-card img {
       width: 100%;
-      aspect-ratio: 16/10;
+      height: auto;
       object-fit: contain;
       background: #fff;
       border-radius: 16px;
       border: 1px solid var(--border);
+      padding: 8px;
     }
 
     .result-card .result-caption {
@@ -307,24 +342,6 @@
       border-radius: 18px;
     }
 
-    .carousel {
-      position: relative;
-    }
-
-    .carousel-track {
-      position: relative;
-      overflow: hidden;
-      border-radius: 18px;
-    }
-
-    .carousel-slide {
-      display: none;
-    }
-
-    .carousel-slide.active {
-      display: block;
-    }
-
     .carousel-btn {
       position: absolute;
       top: 50%;
@@ -334,21 +351,21 @@
       height: 42px;
       border: 0;
       border-radius: 999px;
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.95);
       color: var(--primary);
       font-size: 1.8rem;
       box-shadow: var(--shadow);
       cursor: pointer;
     }
 
-    .carousel-btn.prev { left: 10px; }
-    .carousel-btn.next { right: 10px; }
+    .carousel-btn.prev { left: -12px; }
+    .carousel-btn.next { right: -12px; }
 
     .carousel-dots {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 16px;
     }
 
     .dot {
@@ -407,7 +424,7 @@
 
     @media (max-width: 960px) {
       .grid-2,
-      .results-grid {
+      .results-pair {
         grid-template-columns: 1fr;
       }
 
@@ -425,6 +442,9 @@
         flex-direction: column;
         align-items: flex-start;
       }
+
+      .carousel-btn.prev { left: 8px; }
+      .carousel-btn.next { right: 8px; }
     }
 
     @media (max-width: 640px) {
@@ -434,7 +454,8 @@
 
       .card,
       .video-frame,
-      .lead-card {
+      .lead-card,
+      .results-slide-inner {
         border-radius: 20px;
       }
 
@@ -523,25 +544,8 @@
       <div class="section-accent"></div>
       <div class="grid-2">
         <div class="card">
-          <div class="carousel" id="method-carousel">
-            <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
-            <div class="carousel-track">
-              <div class="carousel-slide active">
-                <div class="figure"><img src="./pipeline.png" alt="Method slide 1" /></div>
-              </div>
-              <div class="carousel-slide">
-                <div class="figure"><img src="./observation.png" alt="Method slide 2" /></div>
-              </div>
-              <div class="carousel-slide">
-                <div class="figure"><img src="./pointnet.png" alt="Method slide 3" /></div>
-              </div>
-            </div>
-            <button class="carousel-btn next" aria-label="Next slide">›</button>
-            <div class="carousel-dots">
-              <button class="dot active" aria-label="Go to slide 1"></button>
-              <button class="dot" aria-label="Go to slide 2"></button>
-              <button class="dot" aria-label="Go to slide 3"></button>
-            </div>
+          <div class="figure">
+            <img src="./pipeline.png" alt="Pipeline figure" />
           </div>
         </div>
 
@@ -564,14 +568,63 @@
     <section id="results" class="section container">
       <h2 class="section-title">Results</h2>
       <div class="section-accent"></div>
-      <div class="results-grid">
-        <div class="card result-card">
-          <img src="./assets/result1.png" alt="Result 1" />
-          <div class="result-caption">Result panel 1. Replace with your plot or qualitative comparison.</div>
+
+      <div class="results-carousel" id="results-carousel">
+        <button class="carousel-btn prev" aria-label="Previous results slide">‹</button>
+
+        <div class="results-track">
+          <div class="results-slide active">
+            <div class="results-slide-inner">
+              <div class="results-pair">
+                <div class="result-card">
+                  <img src="./assets/result1.png" alt="Result 1" />
+                  <div class="result-caption">Result panel 1. Replace with your plot or qualitative comparison.</div>
+                </div>
+                <div class="result-card">
+                  <img src="./assets/result2.png" alt="Result 2" />
+                  <div class="result-caption">Result panel 2. Replace with your distance curve, ablation, or benchmark figure.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-slide">
+            <div class="results-slide-inner">
+              <div class="results-pair">
+                <div class="result-card">
+                  <img src="./assets/result3.png" alt="Result 3" />
+                  <div class="result-caption">Result panel 3. Replace with another comparison figure.</div>
+                </div>
+                <div class="result-card">
+                  <img src="./assets/result4.png" alt="Result 4" />
+                  <div class="result-caption">Result panel 4. Replace with another quantitative plot.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-slide">
+            <div class="results-slide-inner">
+              <div class="results-pair">
+                <div class="result-card">
+                  <img src="./assets/result5.png" alt="Result 5" />
+                  <div class="result-caption">Result panel 5. Replace with your ablation or trajectory figure.</div>
+                </div>
+                <div class="result-card">
+                  <img src="./assets/result6.png" alt="Result 6" />
+                  <div class="result-caption">Result panel 6. Replace with your final comparison figure.</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card result-card">
-          <img src="./assets/result2.png" alt="Result 2" />
-          <div class="result-caption">Result panel 2. Replace with your distance curve, ablation, or benchmark figure.</div>
+
+        <button class="carousel-btn next" aria-label="Next results slide">›</button>
+
+        <div class="carousel-dots">
+          <button class="dot active" aria-label="Go to results slide 1"></button>
+          <button class="dot" aria-label="Go to results slide 2"></button>
+          <button class="dot" aria-label="Go to results slide 3"></button>
         </div>
       </div>
     </section>
@@ -605,10 +658,10 @@
 
   <script>
     (function () {
-      const carousel = document.getElementById('method-carousel');
+      const carousel = document.getElementById('results-carousel');
       if (!carousel) return;
 
-      const slides = carousel.querySelectorAll('.carousel-slide');
+      const slides = carousel.querySelectorAll('.results-slide');
       const dots = carousel.querySelectorAll('.dot');
       const prev = carousel.querySelector('.prev');
       const next = carousel.querySelector('.next');

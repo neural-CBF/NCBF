@@ -283,6 +283,64 @@
       border-radius: 18px;
     }
 
+    .carousel {
+      position: relative;
+    }
+
+    .carousel-track {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    .carousel-slide {
+      display: none;
+    }
+
+    .carousel-slide.active {
+      display: block;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: var(--primary);
+      font-size: 1.8rem;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 0;
+      background: #c8d1ea;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      width: 24px;
+      background: var(--primary-2);
+    }
+
     .bibtex {
       background: #101828;
       color: #e7ecff;
@@ -385,10 +443,16 @@
     <section class="section container">
       <div class="lead-card">
         <div class="teaser-wrap">
-          <img src="./assets/teaser.png" alt="Teaser figure" />
+          <!-- Option A: local MP4 video -->
+          <video controls playsinline poster="./assets/teaser-poster.png" style="width:100%; border-radius:20px; background:#dfe5f5; min-height:360px; object-fit:cover;">
+            <source src="./assets/teaser.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <!-- Option B: YouTube embed. If you use YouTube, delete the <video> above and uncomment this iframe. -->
+          <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Teaser video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         </div>
       </div>
-      <p class="caption">A concise teaser caption goes here. Summarize the task setting, main idea, and the visual takeaway in one or two sentences.</p>
+      <p class="caption">Replace this teaser with your project demo video. Put <code>teaser.mp4</code> into the <code>assets</code> folder, or switch to the embedded YouTube version.</p>
     </section>
 
     <section id="abstract" class="section container">
@@ -404,8 +468,25 @@
       <div class="section-accent"></div>
       <div class="grid-2">
         <div class="card">
-          <div class="figure">
-            <img src="./assets/method.png" alt="Method figure" />
+          <div class="carousel" id="method-carousel">
+            <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
+            <div class="carousel-track">
+              <div class="carousel-slide active">
+                <div class="figure"><img src="./assets/method1.png" alt="Method slide 1" /></div>
+              </div>
+              <div class="carousel-slide">
+                <div class="figure"><img src="./assets/method2.png" alt="Method slide 2" /></div>
+              </div>
+              <div class="carousel-slide">
+                <div class="figure"><img src="./assets/method3.png" alt="Method slide 3" /></div>
+              </div>
+            </div>
+            <button class="carousel-btn next" aria-label="Next slide">›</button>
+            <div class="carousel-dots">
+              <button class="dot active" aria-label="Go to slide 1"></button>
+              <button class="dot" aria-label="Go to slide 2"></button>
+              <button class="dot" aria-label="Go to slide 3"></button>
+            </div>
           </div>
         </div>
         <div class="card">
@@ -464,5 +545,37 @@
   </div>
 
   <a class="backtop" href="#top" aria-label="Back to top">↑</a>
+  <script>
+    (function () {
+      const carousel = document.getElementById('method-carousel');
+      if (!carousel) return;
+
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      const dots = carousel.querySelectorAll('.dot');
+      const prev = carousel.querySelector('.prev');
+      const next = carousel.querySelector('.next');
+      let current = 0;
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        current = index;
+      }
+
+      prev.addEventListener('click', () => {
+        const index = (current - 1 + slides.length) % slides.length;
+        showSlide(index);
+      });
+
+      next.addEventListener('click', () => {
+        const index = (current + 1) % slides.length;
+        showSlide(index);
+      });
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => showSlide(i));
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+这是修改后的代码，将 Video Presentation 部分的 YouTube 嵌入链接替换为上面上传的 video 视频链接，并删除了原来用于展示视频的部分：
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -516,20 +518,6 @@
       </div>
     </section>
 
-    <section class="section container">
-      <div class="lead-card">
-        <div class="teaser-wrap">
-          <video controls playsinline poster="./assets/teaser-poster.png" style="width:100%; border-radius:20px; background:#dfe5f5; min-height:360px; object-fit:cover;">
-            <source src="./teaser.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-      <p class="caption">
-        This video presents experiments on safe manipulation with two 7-DoF Franka Panda manipulators in a dynamic environment. We evaluate the baseline neural CBF and our perception-based neural CBF method. In each experiment, the primary robot performs a grasp task while avoiding a second autonomous Panda acting as a moving obstacle.
-      </p>
-    </section>
-
     <section id="abstract" class="section container">
       <h2 class="section-title">Abstract</h2>
       <div class="section-accent"></div>
@@ -589,128 +577,4 @@
               <div class="results-single">
                 <div class="result-card">
                   <img src="./assets/result2.png" alt="Result 2" />
-                  <div class="result-caption">Result 2. Replace with your distance curve, ablation, or benchmark figure.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="results-slide">
-            <div class="results-slide-inner">
-              <div class="results-single">
-                <div class="result-card">
-                  <img src="./assets/result3.png" alt="Result 3" />
-                  <div class="result-caption">Result 3. Replace with another comparison figure.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="results-slide">
-            <div class="results-slide-inner">
-              <div class="results-single">
-                <div class="result-card">
-                  <img src="./assets/result4.png" alt="Result 4" />
-                  <div class="result-caption">Result 4. Replace with another quantitative plot.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="results-slide">
-            <div class="results-slide-inner">
-              <div class="results-single">
-                <div class="result-card">
-                  <img src="./assets/result5.png" alt="Result 5" />
-                  <div class="result-caption">Result 5. Replace with your ablation or trajectory figure.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="results-slide">
-            <div class="results-slide-inner">
-              <div class="results-single">
-                <div class="result-card">
-                  <img src="./assets/result6.png" alt="Result 6" />
-                  <div class="result-caption">Result 6. Replace with your final comparison figure.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="carousel-btn next" aria-label="Next results slide">›</button>
-
-        <div class="carousel-dots">
-          <button class="dot active" aria-label="Go to results slide 1"></button>
-          <button class="dot" aria-label="Go to results slide 2"></button>
-          <button class="dot" aria-label="Go to results slide 3"></button>
-          <button class="dot" aria-label="Go to results slide 4"></button>
-          <button class="dot" aria-label="Go to results slide 5"></button>
-          <button class="dot" aria-label="Go to results slide 6"></button>
-        </div>
-      </div>
-    </section>
-
-    <section id="video" class="section container">
-      <h2 class="section-title">Video Presentation</h2>
-      <div class="section-accent"></div>
-      <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Project video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <p class="caption">Swap the embedded YouTube link with your own project demo or presentation video.</p>
-    </section>
-
-    <section id="bibtex" class="section container">
-      <h2 class="section-title">BibTeX</h2>
-      <div class="section-accent"></div>
-      <div class="bibtex"><pre>@inproceedings{ncbf2026,
-  title     = {Safe Manipulation in Dynamic Environments via Online Perception-Based Neural Control Barrier Functions},
-  author    = {Author One and Author Two and Author Three},
-  booktitle = {Conference Name},
-  year      = {2026}
-}</pre></div>
-    </section>
-  </main>
-
-  <div class="footer container">
-    © 2026 Your Research Group. Built with GitHub Pages.
-  </div>
-
-  <a class="backtop" href="#top" aria-label="Back to top">↑</a>
-
-  <script>
-    (function () {
-      const carousel = document.getElementById('results-carousel');
-      if (!carousel) return;
-
-      const slides = carousel.querySelectorAll('.results-slide');
-      const dots = carousel.querySelectorAll('.dot');
-      const prev = carousel.querySelector('.prev');
-      const next = carousel.querySelector('.next');
-      let current = 0;
-
-      function showSlide(index) {
-        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-        current = index;
-      }
-
-      prev.addEventListener('click', () => {
-        const index = (current - 1 + slides.length) % slides.length;
-        showSlide(index);
-      });
-
-      next.addEventListener('click', () => {
-        const index = (current + 1) % slides.length;
-        showSlide(index);
-      });
-
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => showSlide(i));
-      });
-    })();
-  </script>
-</body>
-</html>
+                  <div class="result-caption">Result 2. Replace with your distance curve,
